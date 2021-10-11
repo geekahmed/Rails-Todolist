@@ -19,9 +19,14 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
-
+gem 'rspec-rails', '~> 4.0', '>= 4.0.2'
+gem 'factory_bot_rails', '~> 6.1'
+gem 'faker'
+gem 'shoulda-matchers', '~> 4.5', '>= 4.5.1'
+gem 'database_cleaner-mongoid'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
+gem 'rswag'
 # Adding MongoDB Driver
 gem 'mongoid', '~> 7.0.5'
 group :development, :test do
