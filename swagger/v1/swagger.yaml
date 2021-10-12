@@ -41,8 +41,3 @@ paths:
       responses:
         '200':
           description: successful
-servers:
-- url: https://{defaultHost}
-  variables:
-    defaultHost:
-      default: www.example.com

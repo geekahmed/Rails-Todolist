@@ -20,18 +20,7 @@ RSpec.configure do |config|
       info: {
         title: 'API V1',
         version: 'v1'
-      },
-      paths: {},
-      servers: [
-        {
-          url: 'https://{defaultHost}',
-          variables: {
-            defaultHost: {
-              default: 'www.example.com'
-            }
-          }
-        }
-      ]
+      }
     }
   }
 

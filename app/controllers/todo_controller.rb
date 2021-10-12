@@ -7,10 +7,14 @@ class TodoController < ApplicationController
         render json: todos
     end
 
+    def export
+        CsvExportJob.perform_now(@user.id.to_s)
+    end
     def create
         todo = TodoUnit.new(todo_params)
         user = User.find(@user.id.to_s)
         if user.todo_units.push(todo)
+            ActionCable.server.broadcast("todo_units_channel", {data: todo})
             render json: todo.to_json, status: :created
         else
             render json: todo.errors, status: :unprocessable_entity
@@ -18,15 +22,25 @@ class TodoController < ApplicationController
     end
 
     def destroy
-        user.todo_units.delete(@todo)
+        @user.todo_units.delete(@todo)
 
         head :no_content
     end
 
     def show
-        render json: @todo
+        render json: @todo, status: :ok
     end
     
+    def update
+        @todo.update(todo_params)
+        if @user.save!
+            render json: {status: "success", item: @todo}, status: :ok
+        else
+            render json: {error: "Error in update"}, status: :unprocessable_entity
+        end
+    end
+
+
     
     private
 

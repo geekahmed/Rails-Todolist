@@ -6,9 +6,9 @@ class UserController < ApplicationController
       @user = User.create!(user_params)
       if @user.valid?
         token = encode_token({user_id: @user.id.to_s})
-        render json: {user: @user, token: token}, status: :created
+        render json: {user: @user, token: token, status: "success"}, status: :created
       else
-        render json: {error: "Invalid username or password"}
+        render json: {error: "Invalid username or password", status: "failed"}
       end
     end
   
@@ -18,9 +18,9 @@ class UserController < ApplicationController
   
       if @user && @user.authenticate(params[:password])
         token = encode_token({user_id: @user.id.to_s})
-        render json: {token: token}, status: :ok
+        render json: {token: token,  status: "success"}, status: :ok
       else
-        render json: {error: "Invalid username or password"}, status: :unprocessable_entity
+        render json: {error: "Invalid username or password", status: "failed"}, status: :unauthorized
       end
     end
   
@@ -28,7 +28,9 @@ class UserController < ApplicationController
     def auto_login
       render json: @user
     end
-  
+    def logout
+      render json: {messgae: "Logged Out", status: "success"}
+    end
     private
   
     def user_params

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
     rescue_from Mongoid::Errors::DocumentNotDestroyed, with: :not_destroyed
     rescue_from Mongoid::Errors::DocumentNotFound, with: :not_found_e
-    
+    rescue_from Mongoid::Errors::Validations, with: :validation_error_callback
     def encode_token(payload)
         JWT.encode(payload, 'my secret', 'HS256')
     end
@@ -42,9 +42,12 @@ class ApplicationController < ActionController::API
 
     private
     def not_destroyed(err)
-        render json: {errors: err.problem}, status: :unprocessable_entity
+        render json: {error: err.problem,  status: "failed"}, status: :unprocessable_entity
     end
     def not_found_e(err)
-        render json: {errors: err.problem}, status: :not_found
+        render json: {error: err.problem,  status: "failed"}, status: :not_found
+    end
+    def validation_error_callback(err)
+        render json: {error: err.problem,  status: "failed"}, status: :unprocessable_entity
     end
 end
