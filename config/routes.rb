@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get "/auto_login", to: "user#auto_login"
   get "/logout", to: "user#logout"
   get "/export", to: "todo#export"
+  get "/search", to: "todo#search"
 end

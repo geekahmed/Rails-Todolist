@@ -40,6 +40,16 @@ class TodoController < ApplicationController
         end
     end
 
+    def search
+        search_query = params[:q].to_s
+        puts search_query
+        @todos = TodoUnit.search(search_query)
+        if search_query.empty?
+            @todos = TodoUnit.search('*')
+        end
+        @us = User.search(search_query, load: false)
+        render json: {status: "success", items: @todos}, status: :ok
+    end
 
     
     private

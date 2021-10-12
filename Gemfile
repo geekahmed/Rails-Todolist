@@ -28,6 +28,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'rswag'
 gem 'sidekiq'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'carrierwave-base64'
+gem 'searchkick'
 # Adding MongoDB Driver
 gem 'mongoid', '~> 7.0.5'
 group :development, :test do
