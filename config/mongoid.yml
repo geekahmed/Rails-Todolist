@@ -11,7 +11,7 @@ development:
       #hosts:
         # - localhost:27017
         #- <%= "#{ENV['MONGODB_HOST']}" %>
-      uri: mongodb+srv://admin:mQE5gU2sciwHfetw@cluster0.bjolb.mongodb.net/todolistdb?retryWrites=true&w=majority
+      uri: <%= "#{ENV['MONGODB_HOST']}" %>
       options:
         # Note that all options listed below are Ruby driver client options (the mongo gem).
         # Please refer to the driver documentation of the version of the mongo gem you are using
